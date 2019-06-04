@@ -20,19 +20,19 @@ import sys.process._
 object Parser extends App{
   val spark = SparkSession
     .builder()
-    .master("local[*]")
+    .master("local")
     .appName("WikiParser")
     .getOrCreate()
 
   //Path constants
-  val tempPath = "C:\\Users\\Eddie\\Desktop\\MASTER\\2eme\\BDA\\Zeppelin\\data\\temp.xml.bz2"
-  val tempPathUnzip = "C:\\Users\\Eddie\\Desktop\\MASTER\\2eme\\BDA\\Zeppelin\\data\\temp"
-  val indexPath = "C:\\Users\\Eddie\\Desktop\\MASTER\\2eme\\BDA\\Zeppelin\\data\\enwiki-20190101-pages-articles-multistream-index.txt.bz2"
-  val dataPath = "C:\\Users\\Eddie\\Desktop\\MASTER\\2eme\\BDA\\Zeppelin\\data\\enwiki-20190101-pages-articles-multistream.xml.bz2"
-  val outputPath = "C:\\Users\\Eddie\\Desktop\\MASTER\\2eme\\BDA\\Zeppelin\\data\\output"
+  val tempPath = "data\\temp.xml.bz2"
+  val tempPathUnzip = "data\\temp"
+  val indexPath = "data\\simplewiki-20190520-pages-articles-multistream-index.txt.bz2"
+  val dataPath = "data\\simplewiki-20190520-pages-articles-multistream.xml.bz2"
+  val outputPath = "data\\output"
 
   //Regex for wikipedia hyperlinks in xml
-  val hyperLinkRegex = "\\[\\[([^\\]\\[:]+)\\|([^\\]\\[:]+)\\]\\]"
+  val hyperLinkRegex = "\\[\\[:?([^\\]|]+)(?:\\|((?:]?[^\\]|])*+))*\\]\\]([^\\[]*)"
 
   val indexZip = spark.sparkContext.textFile(indexPath)
   val offsets : Array[String] = indexZip.map(line => line.split(":", 2).head)
@@ -118,7 +118,7 @@ object Parser extends App{
           } else if(inText) {
             if (!currentPage.isEmpty) {
               hyperLinkRegex.r.findAllMatchIn(e.text).foreach(link => links.get(currentPage) match {
-                case Some(i) => i += link.group(1)
+                case Some(i) => i += (if(link.groupCount.equals(3)) link.group(2) else link.group(3))
                 case _ =>
               })
             }
@@ -138,7 +138,7 @@ object Parser extends App{
 
     for((k,v) <- links){
       if(v.size > 0){
-        edgeFileWriter.println(k + ": " + v.reduceLeft(_ + ";;" + _))
+        edgeFileWriter.println(k + "\t" + v.reduceLeft(_ + ";;" + _))
       }
     }
     for((k,v) <- ids){
@@ -152,5 +152,8 @@ object Parser extends App{
     FileUtils.deleteQuietly(new File(tempPath))
     FileUtils.deleteDirectory(new File(tempPathUnzip))
   }
+
+  println("Job done.")
+  System.in.read();
 
 }
