@@ -1,6 +1,5 @@
-import org.apache.log4j.{Level, Logger}
 import org.apache.spark.sql.SparkSession
-import org.apache.spark.sql.functions.{col, desc, explode, lower, split}
+import org.apache.spark.sql.functions.{desc, explode, lower}
 
 object wikiWordCounter extends App {
 
@@ -26,4 +25,5 @@ object wikiWordCounter extends App {
 
   wordsCountDF.orderBy(desc("count")).show()
   wordsCountDF.orderBy("count").show()
+  wordsCountDF.write.parquet("s3://wikilosophy-data/wordsCount.parquet")
 }

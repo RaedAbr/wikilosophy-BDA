@@ -1,12 +1,9 @@
-import org.apache.spark.sql.{DataFrame, SparkSession}
+import org.apache.log4j.{Level, Logger}
+import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions._
-import org.apache.log4j.Logger
-import org.apache.log4j.Level
 
 object wikiWordGuesser extends App {
 
-  Logger.getLogger("org").setLevel(Level.ERROR)
-  Logger.getLogger("akka").setLevel(Level.ERROR)
 
   val spark = SparkSession
     .builder()

@@ -49,6 +49,6 @@ Exemple: pour récupérer le contenu de la page ***ASCII***, il faut créer une 
 ## 3. Questions d'analyse
 
 - Calculer le chemin le plus court entre deux pages
-- Quels sont les plus grand Hub (page avec le plus grand nombre de liens sortants) et les plus grandes Autorité (page avec le plus grand nombre de liens entrants) par catégorie.
+- Quels sont les plus grand Hub (page avec le plus grand nombre de liens sortants) et les plus grandes Autorité (page avec le plus grand nombre de liens entrants).
 - Quels sont les mots les plus utilisés sur Wikipédia (Stop-words exclus)
 - Fournir le mot suivant le plus probable d'un mot donné
