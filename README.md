@@ -91,7 +91,7 @@ Nous stockons aussi un fichier permettant de facilement récupérer le titre de 
 
 ## 4. Algorithmes appliqués
 ### Hyperlink-Induced Topic Search (HITS)
-Pour calculer les autorités et les hubs, nous utilisons l'algorithme HITS. De manière itérative, chaque page est fournie un score de "hub" et un score "autorité" qui augmente pour chaque lien sortant/entrant. Les scores sont normalisés pour ne pas exploser avec la taille du graphe.
+Pour calculer les autorités et les hubs, nous utilisons l'algorithme HITS. De manière itérative, chaque page est fournie un score de "hub" et un score "autorité" qui augmente pour chaque lien sortant/entrant. Les scores sont normalisés pour qu'ils convergent.
 
 ## 5. Optimisations
 
