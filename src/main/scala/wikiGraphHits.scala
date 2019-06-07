@@ -13,7 +13,7 @@ object wikiGraphHits extends App {
 
   val scoresG = hits.run(wikiGraph, 5)
   val scoresDF = scoresG.vertices.map(x => (x._1, x._2._1.title, x._2._2.hubScore, x._2._2.authScore)).toDF("id", "title", "hubScore", "authScore")
-  scoresDF.write.parquet("s3://wikilosophy-data/hitsScores.parquet")
+  scoresDF.write.parquet("data/hitsScores.parquet")
 //  val hubs = scoresG.vertices.collect().sortBy(_._2._2.hubScore).reverse
 //  val authorities = scoresG.vertices.collect().sortBy(_._2._2.authScore).reverse
 //  println("Hubs")
