@@ -11,7 +11,6 @@ object wikiGraphShortestPath extends App {
 
   val wikiGraph = wikiGraphReader.parseWikiGraph(spark)
 
-
   val srcArticleName = "Philosophy"
   val srcArticle = wikiGraph.vertices.filter(x => x._2.title == srcArticleName).first()
 
@@ -20,5 +19,5 @@ object wikiGraphShortestPath extends App {
 //    println("Path from " + srcArticle._2.title + " to " + v._2._1.title + ": " + v._2._2 + " distance: " + v._2._3)
 //  )
   val shortestPathsDF = shortestPaths.vertices.map(x => (x._1, x._2._1.title, x._2._2.reverse, x._2._3)).toDF("id", "title", "path", "distance")
-  shortestPathsDF.sort($"distance").write.parquet("s3://wikilosophy-data/shortestPathsToPhilosophy.parquet")
+  shortestPathsDF.sort($"distance").write.parquet("data/shortestPathsToPhilosophy.parquet")
 }

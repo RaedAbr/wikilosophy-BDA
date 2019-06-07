@@ -8,7 +8,7 @@ object wikiWordCounter extends App {
 
   val spark = SparkSession
     .builder()
-    .master("local")
+    .master("local[*]")
     .appName("Spark Optimization example")
     .getOrCreate()
   import spark.implicits._
@@ -21,9 +21,9 @@ object wikiWordCounter extends App {
 
   val stopWordsDF = spark.read.csv("data/stopwords.csv").toDF("stopword")
   val filteredDF = wikiTextDF.join(stopWordsDF.select($"stopword".as("word")), Seq("word"),"left_anti")
-  val wordsCountDF = filteredDF.groupBy($"word").count().cache()
+  val wordsCountDF = filteredDF.groupBy($"word").count()
 
   wordsCountDF.orderBy(desc("count")).show()
   wordsCountDF.orderBy("count").show()
-  wordsCountDF.write.parquet("s3://wikilosophy-data/wordsCount.parquet")
+  wordsCountDF.write.parquet("data/wordsCount.parquet")
 }

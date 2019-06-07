@@ -3,11 +3,8 @@ import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions._
 
 object wikiWordGuesser extends App {
-
-
   val spark = SparkSession
     .builder()
-    .master("local")
     .appName("Spark Optimization example")
     .getOrCreate()
 

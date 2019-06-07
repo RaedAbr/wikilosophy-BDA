@@ -25,5 +25,5 @@ object bigramCounter extends App {
       $"ngrams".getItem(1).as("followedBy"),
       $"count"
     )
-  bigramsDF.write.parquet("s3://wikilosophy-data/bigrams.parquet")
+  bigramsDF.write.parquet("data/bigrams.parquet")
 }
