@@ -94,6 +94,7 @@ Nous stockons aussi un fichier permettant de facilement récupérer le titre de 
 Pour calculer les autorités et les hubs, nous utilisons l'algorithme HITS. De manière itérative, chaque page est fournie un score de "hub" et un score "autorité" qui augmente pour chaque lien sortant/entrant. Les scores sont normalisés pour qu'ils convergent.
 
 ## 5. Optimisations
+Aucune optimisation particulière.
 
 ## 6. Démarches de test et évaluation
 Avant d'effectuer chaque algorithme sur l'entièreté de Wikipédia, nous avons testé la chose sur le dump du "Simple English Wikipedia" (145'000 articles comparé au 5'800'000 de Wikipedia anglais). Ceci assure des temps de calcul plus raisonnables pour s'assurer du bon fonctionnement avant de consacrer beaucoup de temps de calcul au plus grand dataset.
@@ -116,12 +117,25 @@ Voici toutes les distances vers cette page:
 
 
 #### Hubs, authorities
+L'algorithme HITS est appliqué avec 5 itérations avec un score de 1 de base. Le résultat est un tableau contenant pour chaque ID de page son score "authority" et "hub". On peut voir les plus grands scores des deux catégories:
+
+![](./Screenshots/hubsauths.jpeg)
+
+Les plus grands hubs sont quasiment uniquement des dates, avec parfois des pages de pays. Les pages contenant des dates aggrège tous les événements importants se passant à cette date et ont donc énormément de liens sortants. Il n'est donc pas étonnant que ces pages soient les plus grands hubs. On pourrait dire que la date la plus importante (la date à laquelle il s'est passé le plus d'évenemnts notables) est le 1 Janvier, et l'année la plus importante est 2006.
+
+Les autorités, elles, sont presques identiques aux hubs. Ceci est dû à la nature de Wikipédia: la page d'un évenement se passant à une certaine date va contenir cette date, et donc quasiment tous ces liens sont bidirectionels.
+
 
 ### English Wikipedia
 #### Parsing
 Le parsing a pu être effectué même si il n'a pas pu être utilisé dû aux problèmes de mémoire décrits plus haut. Le fichier contenant les arêtes du graphe à une taille de 1.8GB décompressé, et le fichier contenant les ID des pages fais 670MB décompressé.
 
 #### Mots les plus utilisés
+Les mots les plus utilisés sont stockés et peuvent être chargés dans un Dataframe. On peut ensuite faire des requêtes pour voir le nombre d'occurences d'un mot particulier, ou regarder les mots les plus/moins utilisés:
+![](./Screenshots/mostused.jpeg)
+
+Les stopwords sont filtrés pour éviter qu'ils remplissent le tableau des mots les plus utilisés. On peut voir que les mots avec une seule occurence sont très particuliers, peut-être des fautes de frappe, mais souvent des mots inexistants.
+
 
 #### Bigrammes
 Tous les bigrammes et leurs nombre d'occurences sont stockés, il suffit d'effectuer une requête sur le dataframe. Par exemple, si on veut voir si le mot "data" apparaît souvent après "big", on peut effectuer la requête:
