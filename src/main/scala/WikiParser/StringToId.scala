@@ -17,12 +17,13 @@ object StringToId extends App{
   val f3 = new File("data\\output\\idWithString.txt")
   val w2 = new PrintWriter(f3)
 
-
+  // Foreach line in the index file, build a map: page id as key, the page title as value
   for (line <- Source.fromFile(indexPath).getLines()){
     val array = line.split(":", 3)
     idToStrings += array(2) -> array(1).toInt
   }
 
+  // Foreach line in the file containing the edges, replace the page title by it's id
   for (line <- Source.fromFile(edgePath).getLines()){
     val array = line.split("\t", 2)
     val node = idToStrings.getOrElse(array(0), None)
