@@ -78,7 +78,7 @@ Finalement, on produit un fichier contenant des lignes sous la forme `id: id id 
 
 Nous stockons aussi un fichier permettant de facilement récupérer le titre de la page en fonction de son ID que nous utiliserons plus tard avec **GraphX**.
 
-![](./Screenshots/idlinks.png)
+![](./Screenshots/idtostring.png)
 
 
 
