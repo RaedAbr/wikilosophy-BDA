@@ -46,6 +46,32 @@ Pour récupérer le contenu d'une page, il faut créer une petite partition en u
 
 Exemple: pour récupérer le contenu de la page ***ASCII***, il faut créer une partition à partir de l'offset **615** jusqu'au l'offset **644151** du fichier de base, décompresser cette partition, puis la parcourir séquentiellement pour arriver à la page ***ASCII***
 
+## 2. description des features utilisés et du prétraitement événtuel pour extraire des features
+
+L'information la plus utile dans notre cas est les **liens** dans les articles. Pour commencer, nous avons eu besoin d'extraire le texte des articles de Wikipédia depuis le dump. Cette étape nécessite la décompression partielle de ce dernier, car on peut pas charger tout le fichier dans la mémoire au moment de l'exécution. Pour ce faire, nous avons utilisé le fichier index. La procédure est la suivante :
+
+- Récupérer l'offset depuis l'index
+
+- Décompresser la partie à partir de cet offset jusqu'au prochain offset du dump utilisant la commande `dd` depuis notre programme Scala (`Process(bash_command).!`). On récupère ainsi 1OO articles Wikipédia en XML
+
+- Parser les articles (le XML) utilisant (XMLEventReader) fourni par Scala et récupérer le contenu des articles
+
+- Pour chaque article, récupérer la liste des liens inter-page. Les liens peuvent être sous différentes formes :
+
+  - `[[pageName]]`
+  - `[[pageName|The Page]]`
+  - `[[pageName|The [[otherpage|Page]] page]]`
+
+  On enregistre ces informations sous la forme suivante :
+
+  ```
+  pageName:\tPage1;;Page2;;Page3;;…
+  ```
+
+Dans un deuxième lieu, on applique un deuxième passage sur nos données produites (chaque page avec ses liens) pour les nettoyer. Chacune de ces pages doit dans l'index. Si ce n'est pas le cas, on la supprime. Ensuite, on construit un dictionnaire depuis l'index `Map(title:String => id:Int)`. Cette transformation nous sera utile pour remplacer les titres des pages par les ids.
+
+Finalement, on produit un fichier contenant des lignes sous la forme `id: id id id id ...`. On a choisit ce format pour que notre fichier soit lisible depuis **GraphX** plus tard. 
+
 ## 3. Questions d'analyse
 
 - Calculer le chemin le plus court entre deux pages
