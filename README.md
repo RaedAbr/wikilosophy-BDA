@@ -68,6 +68,7 @@ L'information la plus utile dans notre cas est les **liens** dans les articles. 
   pageName:\tPage1;;Page2;;Page3;;…
   ```
   
+
 ![](./Screenshots/stringtostring.png)
 
 Dans un deuxième lieu, on applique un deuxième passage sur nos données produites (chaque page avec ses liens) pour les nettoyer. Chacune de ces pages doit dans l'index. Si ce n'est pas le cas, on la supprime. Ensuite, on construit un dictionnaire depuis l'index `Map(title:String => id:Int)`. Cette transformation nous sera utile pour remplacer les titres des pages par les ids.
@@ -92,6 +93,14 @@ Nous stockons aussi un fichier permettant de facilement récupérer le titre de 
 ## 4. Algorithmes appliqués
 ### Hyperlink-Induced Topic Search (HITS)
 Pour calculer les autorités et les hubs, nous utilisons l'algorithme HITS. De manière itérative, chaque page est fournie un score de "hub" et un score "autorité" qui augmente pour chaque lien sortant/entrant. Les scores sont normalisés pour qu'ils convergent.
+
+https://medium.com/@gangareddy619/advanced-graph-algorithms-in-spark-using-graphx-aggregated-messages-and-collective-communication-f3396c7be4aa
+
+### Dijkstra shortest path algorithm
+
+Afin de calculer le plus court chemin dans un graph, nous avons implémenté l'algorithme de Dijkstra qui permet de trouver le plus court chemin entre un vertex et tous les autres vertices. Pour adapter l'algorithme, nous avons utilisé pregel qui est API permettant aux vertices d'envoyer des messages à leurs voisins. Cette méthode d'envoi de messages permet de simplifier l'implémentation d'algorithmes sur les graphs ayant une représentation sous forme d'edge et de vertex plutot que de matrices.
+
+[http://note.yuhc.me/2015/03/graphx-pregel-shortest-path/comment-page-1/#comment-13](http://note.yuhc.me/2015/03/graphx-pregel-shortest-path/comment-page-1/#comment-13)
 
 ## 5. Optimisations
 Aucune optimisation particulière.
