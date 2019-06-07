@@ -46,7 +46,7 @@ Pour récupérer le contenu d'une page, il faut créer une petite partition en u
 
 Exemple: pour récupérer le contenu de la page ***ASCII***, il faut créer une partition à partir de l'offset **615** jusqu'au l'offset **644151** du fichier de base, décompresser cette partition, puis la parcourir séquentiellement pour arriver à la page ***ASCII***
 
-## 2. description des features utilisés et du prétraitement événtuel pour extraire des features
+## 2. Description des features utilisés et du prétraitement événtuel pour extraire des features
 
 L'information la plus utile dans notre cas est les **liens** dans les articles. Pour commencer, nous avons eu besoin d'extraire le texte des articles de Wikipédia depuis le dump. Cette étape nécessite la décompression partielle de ce dernier, car on peut pas charger tout le fichier dans la mémoire au moment de l'exécution. Pour ce faire, nous avons utilisé le fichier index. La procédure est la suivante :
 
@@ -90,13 +90,26 @@ Nous stockons aussi un fichier permettant de facilement récupérer le titre de 
 - Fournir le mot suivant le plus probable d'un mot donné
 
 ## 4. Algorithmes appliqués
+### Hyperlink-Induced Topic Search (HITS)
+Pour calculer les autorités et les hubs, nous utilisons l'algorithme HITS. De manière itérative, chaque page est fournie un score de "hub" et un score "authorité" qui 
 
 ## 5. Optimisations
 
-
 ## 6. Démarches de test et évaluation
+Avant d'effectuer chaque algorithme sur l'entièreté de Wikipédia, nous avons testé la chose sur le dump du "Simple English Wikipedia" (145'000 articles). Ceci assure des temps de calcul plus raisonnables pour s'assurer du bon fonctionnement avant de consacrer beaucoup de temps de calcul au plus grand dataset.
+
+Les plus gros hubs ont été visités manuellement pour s'assurer qu'il s'agit de pages contenant beaucoup de liens, mais aucun autre teste n'a vraiment pu être effectué pour cette étape. Pour les autres étapes, les résultats n'ont pas pu être testés.
 
 ## 7.  Résultats
+### Simple English Wikipedia
+
+#### Chemin le plus court
+
+#### Hubs, authorities
+
+#### Mots les plus utilisés
+
+#### Bigrammes
 
 ## 8. Propositions d'améliorations
 
