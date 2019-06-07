@@ -91,7 +91,7 @@ Nous stockons aussi un fichier permettant de facilement récupérer le titre de 
 
 ## 4. Algorithmes appliqués
 ### Hyperlink-Induced Topic Search (HITS)
-Pour calculer les autorités et les hubs, nous utilisons l'algorithme HITS. De manière itérative, chaque page est fournie un score de "hub" et un score "authorité" qui augmente pour chaque lien sortant/entrant. Les scores sont normalisés pour ne pas exploser avec la taille du graphe.
+Pour calculer les autorités et les hubs, nous utilisons l'algorithme HITS. De manière itérative, chaque page est fournie un score de "hub" et un score "autorité" qui augmente pour chaque lien sortant/entrant. Les scores sont normalisés pour ne pas exploser avec la taille du graphe.
 
 ## 5. Optimisations
 
@@ -106,14 +106,29 @@ Les plus gros hubs ont été visités manuellement pour s'assurer qu'il s'agit d
 Les deux premiers algorithmes n'ont malheureusement pas pu être tournés sur le graphe de Wikipedia anglais. Malgré l'utilisation d'un cluster de quatre machine à 32GB de mémoire avec un tas JVM configuré à 28GB, nous avons tout de même obtenu une exception ```java.lang.OutOfMemoryError: Java heap space```. Bien que le parsing et nettoyage ont été effectués sur les données, elles n'ont malheureusement pas pu être chargées dans un graphe.
 
 #### Chemin le plus court
+Le chemin le plus court nécessite un calcul de tous les chemins pour une destination donnée: nous avons effectués le calcul avec la page "Philosophy" pour exemple. Voici les chemins les plus longs vers cette page:
+
+![](./Screenshots/longesttophilo.jpeg)
+
+Voici toutes les distances vers cette page:
+
+![](./Screenshots/distancestophilo.jpeg)
+
 
 #### Hubs, authorities
 
 ### English Wikipedia
+#### Parsing
+Le parsing a pu être effectué même si il n'a pas pu être utilisé dû aux problèmes de mémoire décrits plus haut. Le fichier contenant les arêtes du graphe à une taille de 1.8GB décompressé, et le fichier contenant les ID des pages fais 670MB décompressé.
 
 #### Mots les plus utilisés
 
 #### Bigrammes
+Tous les bigrammes et leurs nombre d'occurences sont stockés, il suffit d'effectuer une requête sur le dataframe. Par exemple, si on veut voir si le mot "data" apparaît souvent après "big", on peut effectuer la requête:
+
+![](./Screenshots/big_bigrams.jpeg)
+
+On peut voir qu'il n'apparait pas dans la liste: il y a une très faible probabilité que "data" suive le mot "big" dans tout Wikipédia.
 
 
 
