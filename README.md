@@ -67,10 +67,20 @@ L'information la plus utile dans notre cas est les **liens** dans les articles. 
   ```
   pageName:\tPage1;;Page2;;Page3;;…
   ```
+  
+![](./Screenshots/stringtostring.png)
 
 Dans un deuxième lieu, on applique un deuxième passage sur nos données produites (chaque page avec ses liens) pour les nettoyer. Chacune de ces pages doit dans l'index. Si ce n'est pas le cas, on la supprime. Ensuite, on construit un dictionnaire depuis l'index `Map(title:String => id:Int)`. Cette transformation nous sera utile pour remplacer les titres des pages par les ids.
 
 Finalement, on produit un fichier contenant des lignes sous la forme `id: id id id id ...`. On a choisit ce format pour que notre fichier soit lisible depuis **GraphX** plus tard. 
+
+![](./Screenshots/idlinks.png)
+
+Nous stockons aussi un fichier permettant de facilement récupérer le titre de la page en fonction de son ID que nous utiliserons plus tard avec **GraphX**.
+
+![](./Screenshots/idlinks.png)
+
+
 
 ## 3. Questions d'analyse
 
