@@ -91,25 +91,31 @@ Nous stockons aussi un fichier permettant de facilement récupérer le titre de 
 
 ## 4. Algorithmes appliqués
 ### Hyperlink-Induced Topic Search (HITS)
-Pour calculer les autorités et les hubs, nous utilisons l'algorithme HITS. De manière itérative, chaque page est fournie un score de "hub" et un score "authorité" qui 
+Pour calculer les autorités et les hubs, nous utilisons l'algorithme HITS. De manière itérative, chaque page est fournie un score de "hub" et un score "authorité" qui augmente pour chaque lien sortant/entrant. Les scores sont normalisés pour ne pas exploser avec la taille du graphe.
 
 ## 5. Optimisations
 
 ## 6. Démarches de test et évaluation
-Avant d'effectuer chaque algorithme sur l'entièreté de Wikipédia, nous avons testé la chose sur le dump du "Simple English Wikipedia" (145'000 articles). Ceci assure des temps de calcul plus raisonnables pour s'assurer du bon fonctionnement avant de consacrer beaucoup de temps de calcul au plus grand dataset.
+Avant d'effectuer chaque algorithme sur l'entièreté de Wikipédia, nous avons testé la chose sur le dump du "Simple English Wikipedia" (145'000 articles comparé au 5'800'000 de Wikipedia anglais). Ceci assure des temps de calcul plus raisonnables pour s'assurer du bon fonctionnement avant de consacrer beaucoup de temps de calcul au plus grand dataset.
 
 Les plus gros hubs ont été visités manuellement pour s'assurer qu'il s'agit de pages contenant beaucoup de liens, mais aucun autre teste n'a vraiment pu être effectué pour cette étape. Pour les autres étapes, les résultats n'ont pas pu être testés.
 
 ## 7.  Résultats
+
 ### Simple English Wikipedia
+Les deux premiers algorithmes n'ont malheureusement pas pu être tournés sur le graphe de Wikipedia anglais. Malgré l'utilisation d'un cluster de quatre machine à 32GB de mémoire avec un tas JVM configuré à 28GB, nous avons tout de même obtenu une exception ```java.lang.OutOfMemoryError: Java heap space```. Bien que le parsing et nettoyage ont été effectués sur les données, elles n'ont malheureusement pas pu être chargées dans un graphe.
 
 #### Chemin le plus court
 
 #### Hubs, authorities
 
+### English Wikipedia
+
 #### Mots les plus utilisés
 
 #### Bigrammes
+
+
 
 ## 8. Propositions d'améliorations
 
