@@ -88,3 +88,16 @@ Nous stockons aussi un fichier permettant de facilement récupérer le titre de 
 - Quels sont les plus grand Hub (page avec le plus grand nombre de liens sortants) et les plus grandes Autorité (page avec le plus grand nombre de liens entrants).
 - Quels sont les mots les plus utilisés sur Wikipédia (Stop-words exclus)
 - Fournir le mot suivant le plus probable d'un mot donné
+
+## 4. Algorithmes appliqués
+
+## 5. Optimisations
+
+
+## 6. Démarches de test et évaluation
+
+## 7.  Résultats
+
+## 8. Propositions d'améliorations
+
+Pour le parsing XML, nous effectuons des manipulations mémoire avec la commande de copie 'dd' pour extraire des pages. Ceci nous empêche d'utiliser entièrement Spark pour le parsing et nous force à copier une partie, la traiter, puis effacer sur le disque avec des commandes bash. Nous n'avons pas trouver un moyen d'extraire à partir d'un RDD un morceau d'une taille spécifique à un offset pour le traiter dans un autre RDD. Le parsing est donc assez lent (30h sur un laptop pour l'entièreté de Wikipedia anglais). 
