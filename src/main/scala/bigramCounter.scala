@@ -10,8 +10,10 @@ object bigramCounter extends App {
     .getOrCreate()
   import spark.implicits._
 
+  // Parse wikipedia text
   val wikiTextDF = wikiReader.parseWiki(spark).select("text")
 
+  // Build a DataFrame containing 2-gram words of the text
   val bigramsDF = new NGram().setN(2).setInputCol("text").setOutputCol("ngrams").transform(wikiTextDF)
     .drop("text")
     .withColumn("ngrams", explode($"ngrams"))

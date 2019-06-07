@@ -5,6 +5,7 @@ import scala.annotation.tailrec
 object hits {
   case class Scores(hubScore: Double, authScore: Double)
 
+  // Compute wikipedia articles score using HITS algorithm
   def run(g: Graph[WikiArticle, Double], maxIter: Int): Graph[(WikiArticle, Scores), Double] ={
     def reducer(a: Scores, b:Scores):Scores = Scores(a.hubScore+b.hubScore, a.authScore + b.authScore)
     @tailrec
